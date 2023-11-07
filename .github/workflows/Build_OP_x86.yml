@@ -74,7 +74,7 @@ jobs:
     - name: Import external feeds - xmm
       working-directory: ./openwrt
       run: |
-        git clone https://github.com/koshev-msk/modemfeed package/modemfeed
+        git clone https://github.com/koshev-msk/modemfeed.git package/modemfeed
 
     - name: Configuration Customization - Build_x86
       env:
