@@ -55,11 +55,6 @@ jobs:
         REPO_BRANCH: master
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
-        cd openwrt
-        git clone -b master --depth 1 --single-branch https://github.com/coolsnowwolf/lede lede
-        git clone -b master --depth 1 --single-branch https://github.com/immortalwrt/immortalwrt immortalwrt
-        git clone -b master --depth 1 --single-branch https://github.com/immortalwrt/packages immortalwrt-packages
-        git clone -b master --depth 1 --single-branch https://github.com/immortalwrt/luci immortalwrt-luci
         #echo "src-git ssrp https://github.com/fw876/helloworld.git" >> ./feeds.conf.default
 
     - name: Update & Install feeds
@@ -68,6 +63,16 @@ jobs:
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         ./scripts/feeds install -a
+
+    - name: Import external feeds - immortal
+      working-directory: ./openwrt
+      run: |
+        git clone https://github.com/immortalwrt/immortalwrt.git immortalwrt
+        cp -rf immortalwrt/package/emortal/autocore package/new
+        cp -rf immortalwrt/package/utils/mhz package/utils
+        git clone https://github.com/immortalwrt/immortalwrt-luci.git immortalwrt-luci
+        cp -rf immortalwrt-luci/modules/luci-base feeds/luci/modules
+        cp -rf immortalwrt-luci/modules/luci-mod-status feeds/luci/modules
 
     - name: Import external feeds - passwall
       working-directory: ./openwrt
