@@ -83,7 +83,7 @@ jobs:
     - name: Import external feeds - oc
        working-directory: ./openwrt
        run: |
-        [[ ! -d package/new ]] && mkdir -p package/new
+        mkdir -p package/new
         cp -rf ../immortalwrt/package/emortal/autocore package/new/
         cp -rf ../immortalwrt/package/utils/mhz package/utils/
         rm -rf feeds/luci/modules/luci-base
