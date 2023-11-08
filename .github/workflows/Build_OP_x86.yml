@@ -7,7 +7,6 @@
 
 name: Build_x86
 
-# Add a button to trigger the workflow
 on: 
   repository_dispatch:
   workflow_dispatch:
@@ -18,11 +17,9 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
 
-    - name: Initialization environment
-      env:
-        DEBIAN_FRONTEND: noninteractive
+    - name: Initialize Environment
       run: |
         set +e
         docker rmi `docker images -q`
@@ -49,22 +46,17 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
 
-    - name: Clone source code
-      env: 
-        REPO_URL: https://github.com/openwrt/openwrt
-        REPO_BRANCH: master
+    - name: Clone Source Code
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
-        #echo "src-git ssrp https://github.com/fw876/helloworld.git" >> ./feeds.conf.default
+        git clone --depth 1 https://github.com/openwrt/openwrt -b master openwrt
 
-    - name: Update & Install feeds
+    - name: Update & Install Feeds
       working-directory: ./openwrt
       run: |
         ./scripts/feeds update -a
         ./scripts/feeds install -a
-        ./scripts/feeds install -a
 
-    - name: Import external feeds - immortal
+    - name: Import External Feeds - immortal
       working-directory: ./openwrt
       run: |
         git clone https://github.com/immortalwrt/immortalwrt.git immortalwrt
@@ -74,13 +66,13 @@ jobs:
         cp -rf immortalwrt-luci/modules/luci-base feeds/luci/modules
         cp -rf immortalwrt-luci/modules/luci-mod-status feeds/luci/modules
 
-    - name: Import external feeds - passwall
+    - name: Import External Feeds - passwall
       working-directory: ./openwrt
       run: |
         git clone https://github.com/xiaorouji/openwrt-passwall.git package/lienol
         git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall 
 
-    - name: Import external feeds - xmm
+    - name: Import External Feeds - xmm
       working-directory: ./openwrt
       run: |
         git clone https://github.com/koshev-msk/modemfeed.git package/modemfeed
@@ -93,21 +85,22 @@ jobs:
         chmod +x ./customize.sh && ./customize.sh
         cd openwrt && make defconfig
         
-    - name: Download package
+    - name: Download Packages
       working-directory: ./openwrt
       run: |
         make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: Build firmware
+    - name: Build Firmware
       working-directory: ./openwrt
       run: |
         echo -e "$(nproc) thread build."
         make -j$(nproc) V=sc
 
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
       with:
         name: OpenWrt
         path: openwrt/bin
+        
