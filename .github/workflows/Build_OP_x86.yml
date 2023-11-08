@@ -84,20 +84,15 @@ jobs:
        working-directory: ./openwrt
        run: |
         [[ ! -d package/new ]] && mkdir -p package/new
-  # AutoCore
-      cp -rf ../immortalwrt/package/emortal/autocore package/new/
-      cp -rf ../immortalwrt/package/utils/mhz package/utils/
-      rm -rf feeds/luci/modules/luci-base
-      cp -rf ../immortalwrt-luci/modules/luci-base feeds/luci/modules
-      rm -rf feeds/luci/modules/luci-mod-status
-      cp -rf ../immortalwrt-luci/modules/luci-mod-status feeds/luci/modules/
-
-      # automount
-      cp -rf ../lede/package/lean/automount package/new/
-      cp -rf ../lede/package/lean/ntfs3-mount package/new/
-
-      # cpufreq
-      cp -rf ../immortalwrt-luci/applications/luci-app-cpufreq package/new/
+        cp -rf ../immortalwrt/package/emortal/autocore package/new/
+        cp -rf ../immortalwrt/package/utils/mhz package/utils/
+        rm -rf feeds/luci/modules/luci-base
+        cp -rf ../immortalwrt-luci/modules/luci-base feeds/luci/modules
+        rm -rf feeds/luci/modules/luci-mod-status
+        cp -rf ../immortalwrt-luci/modules/luci-mod-status feeds/luci/modules/
+        cp -rf ../lede/package/lean/automount package/new/
+        cp -rf ../lede/package/lean/ntfs3-mount package/new/
+        cp -rf ../immortalwrt-luci/applications/luci-app-cpufreq package/new/
         
     - name: Configuration Customization - Build_x86
       env:
