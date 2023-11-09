@@ -62,7 +62,6 @@ jobs:
         git clone https://github.com/immortalwrt/immortalwrt.git immortalwrt
         cp -rf immortalwrt/package/emortal/autocore package/new
         cp -rf immortalwrt/package/utils/mhz package/utils
-        git clone https://github.com/immortalwrt/immortalwrt-luci.git immortalwrt-luci
         cp -rf immortalwrt-luci/modules/luci-base feeds/luci/modules
         cp -rf immortalwrt-luci/modules/luci-mod-status feeds/luci/modules
 
