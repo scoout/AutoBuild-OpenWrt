@@ -59,12 +59,12 @@ jobs:
     - name: Import External Feeds - immortal
       working-directory: ./openwrt
       run: |
-      git clone https://github.com/immortalwrt/immortalwrt.git immortalwrt
-      cp -rf immortalwrt/package/emortal/autocore package/
-      cp -rf immortalwrt/package/utils/mhz package/
-      git clone https://github.com/immortalwrt/luci.git immortalwrt-luci
-      cp -rf immortalwrt-luci/modules/luci-base/* feeds/luci/modules/
-      cp -rf immortalwrt-luci/modules/luci-mod-status/* feeds/luci/modules/
+       git clone https://github.com/immortalwrt/immortalwrt.git immortalwrt
+       cp -rf immortalwrt/package/emortal/autocore package/
+       cp -rf immortalwrt/package/utils/mhz package/
+       git clone https://github.com/immortalwrt/luci.git immortalwrt-luci
+       cp -rf immortalwrt-luci/modules/luci-base/* feeds/luci/modules/
+       cp -rf immortalwrt-luci/modules/luci-mod-status/* feeds/luci/modules/
     
     - name: Import External Feeds - passwall
       working-directory: ./openwrt
