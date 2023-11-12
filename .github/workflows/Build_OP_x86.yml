@@ -59,7 +59,7 @@ jobs:
     - name: Import External Feeds - immortal
       working-directory: ./openwrt
       run: |
-       git clone https://github.com/immortalwrt/immortalwrt.git package/immortal
+       git clone https://github.com/scoout/immortalwrt.git package/immortal
     
     - name: Import External Feeds - passwall
       working-directory: ./openwrt
@@ -71,7 +71,8 @@ jobs:
       working-directory: ./openwrt
       run: |
         git clone https://github.com/koshev-msk/modemfeed.git package/modemfeed
-       
+        ./scripts/feeds install -a
+        
     - name: Configuration Customization - Build_x86
       env:
         CONFIG_FILE: 'x86.config'
