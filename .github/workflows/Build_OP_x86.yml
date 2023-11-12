@@ -17,7 +17,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Initialize Environment
       run: |
@@ -94,7 +94,7 @@ jobs:
         make -j$(nproc) V=sc
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: OpenWrt
         path: openwrt/bin
